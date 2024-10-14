@@ -10,13 +10,15 @@ import {
   Layout
 } from '@shopify/polaris';
 import { DeleteIcon } from '@shopify/polaris-icons'; // Import icon delete
-import "./index.css"
+import "./index.css";
 
 function DiscountForm() {
   const [campaignName, setCampaignName] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [options, setOptions] = useState([
-    { title: '', quantity: 1, discountType: 'None', amount: '' },
-    { title: '', quantity: 2, discountType: 'None', amount: '' },
+    { title: 'Single', subTitle: "Standard price", label: "", quantity: 1, discountType: 'None', amount: '' },
+    { title: 'Duo', subTitle: "Save 10%", label: "Popular", quantity: 2, discountType: 'percent', amount: '10' },
   ]);
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState([]);
@@ -31,6 +33,12 @@ function DiscountForm() {
     let formErrors = {};
     if (campaignName === '') {
       formErrors.campaignName = 'Campaign Name is required';
+    }
+    if (title === '') {
+      formErrors.title = 'Title is required';
+    }
+    if (description === '') {
+      formErrors.description = 'Description is required';
     }
     options.forEach((option, index) => {
       if (option.title === '') {
@@ -81,12 +89,29 @@ function DiscountForm() {
         {/* Form Section */}
         <Layout.Section>
           <FormLayout>
+           
             <Card sectioned title="Campaign Details">
+            <h1>General</h1>
               <TextField
-                label="Campaign Name"
+                label="Campaign"
                 value={campaignName}
                 onChange={(value) => setCampaignName(value)}
                 error={errors.campaignName}
+                placeholder='Volume discount #2'
+              />
+              <TextField
+                label="Title"
+                value={title}
+                onChange={(value) => setTitle(value)}
+                error={errors.title}
+                placeholder='buy more and save'
+              />
+              <TextField
+                label="Description"
+                value={description}
+                onChange={(value) => setDescription(value)}
+                error={errors.description}
+                placeholder='Apply for all products in store'
               />
             </Card>
 
