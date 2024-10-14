@@ -10,6 +10,7 @@ import {
   Layout
 } from '@shopify/polaris';
 import { DeleteIcon } from '@shopify/polaris-icons'; // Import icon delete
+import "./index.css"
 
 function DiscountForm() {
   const [campaignName, setCampaignName] = useState('');
@@ -94,17 +95,21 @@ function DiscountForm() {
                 <Card key={index} sectioned>
                   <div style={{ position: 'relative' }}>
                     {/* Nút delete ở góc trên bên phải */}
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                      <h1 style={{
+                        "background-color": "#f3725b",
+                        "padding": "3px",
+                        color: "white"
+                      }}>Option {index + 1}</h1>
                     <Button
                       icon={DeleteIcon}
                       onClick={() => handleRemoveOption(index)}
                       plain
-                      style={{
-                        position: 'absolute',
-                        top: '8px',
-                        right: '8px',
-                      }}
+                      style={{}}
                       accessibilityLabel="Remove option"
                     />
+                    </div>
+            
                     <Layout>
                       <Layout.Section oneThird>
                         <TextField
@@ -156,10 +161,13 @@ function DiscountForm() {
                 </Card>
               ))}
 
-              <Button onClick={handleAddOption}>Add Option</Button>
-            </Card>
+              <div>
 
-            <Button primary onClick={handleSave}>
+              </div>
+              <Button fullWidth id="custom-add-option-button" onClick={handleAddOption}>Add Option</Button>
+            </Card>
+              
+            <Button fullWidth primary id='custom-save-button' onClick={handleSave}>
               Save
             </Button>
           </FormLayout>
