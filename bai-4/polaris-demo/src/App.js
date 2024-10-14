@@ -258,12 +258,22 @@ function DiscountForm() {
             {/* Preview Section */}
             <Layout.Section secondary>
               <Card sectioned title="Preview Options">
+                <h1 style={{
+                  fontWeight: "bold"
+                }}>Preview</h1>
+                <h1 style={{
+                  fontWeight: "bold",
+                  textAlign: "center"
+                }}>Buy more and save</h1>
+                      <h1 style={{
+                  fontWeight: "bold",
+                }}>Apply for all products in store</h1>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr>
                       <th style={{ border: '1px solid #ccc', padding: '8px' }}>Title</th>
-                      <th style={{ border: '1px solid #ccc', padding: '8px' }}>Quantity</th>
                       <th style={{ border: '1px solid #ccc', padding: '8px' }}>Discount Type</th>
+                      <th style={{ border: '1px solid #ccc', padding: '8px' }}>Quantity</th>
                       <th style={{ border: '1px solid #ccc', padding: '8px' }}>Amount</th>
                     </tr>
                   </thead>
@@ -271,8 +281,8 @@ function DiscountForm() {
                     {preview.map((option, index) => (
                       <tr key={index}>
                         <td style={{ border: '1px solid #ccc', padding: '8px' }}>{option.title}</td>
+                        <td style={{ border: '1px solid #ccc', padding: '8px' }}>{ option.discountType}</td>
                         <td style={{ border: '1px solid #ccc', padding: '8px' }}>{option.quantity}</td>
-                        <td style={{ border: '1px solid #ccc', padding: '8px' }}>{option.discountType}</td>
                         <td style={{ border: '1px solid #ccc', padding: '8px' }}>
                           {option.discountType === 'percent' ? `${option.amount}%` : option.discountType === 'fixed' ? `$${option.amount}` : ''}
                         </td>
