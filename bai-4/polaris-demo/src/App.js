@@ -160,7 +160,7 @@ function DiscountForm() {
                                   label="Subtitle"
                                   value={option.subtitle}
                                   onChange={(value) => handleFieldChange('subtitle', value, index)}
-                                  error={errors[`subTitle_${index}`]}
+                                  error={errors[`subtitle_${index}`]}
                                 />
                               </Layout.Section>
                             </div>
@@ -224,6 +224,12 @@ function DiscountForm() {
                         {/* Hiển thị lỗi */}
                         {errors[`title_${index}`] && (
                           <InlineError message={errors[`title_${index}`]} fieldID={`title_${index}`} />
+                        )}
+                        {errors[`subtitle_${index}`] && (
+                          <InlineError message={errors[`subtitle_${index}`]} fieldID={`subtitle_${index}`} />
+                        )}
+                        {errors[`label_${index}`] && (
+                          <InlineError message={errors[`label_${index}`]} fieldID={`label_${index}`} />
                         )}
                         {errors[`quantity_${index}`] && (
                           <InlineError message={errors[`quantity_${index}`]} fieldID={`quantity_${index}`} />
