@@ -7,8 +7,9 @@ import {
   Select,
   TextField,
   InlineError,
-  Layout,
+  Layout
 } from '@shopify/polaris';
+import { DeleteIcon } from '@shopify/polaris-icons'; // Import icon delete
 
 function DiscountForm() {
   const [campaignName, setCampaignName] = useState('');
@@ -75,9 +76,9 @@ function DiscountForm() {
   return (
     <Page title="Create volume discount">
       <Layout>
-        <div style={{display: "flex", justifyContent: "center"}}>
-     {/* Form Section */}
-     <Layout.Section>
+      <div style={{display: "flex", justifyContent: "center"}}>
+        {/* Form Section */}
+        <Layout.Section>
           <FormLayout>
             <Card sectioned title="Campaign Details">
               <TextField
@@ -90,59 +91,69 @@ function DiscountForm() {
 
             <Card sectioned title="Options">
               {options.map((option, index) => (
-                <div key={index}>
-                  <Layout>
-                    <Layout.Section oneThird>
-                      <TextField
-                        label="Title"
-                        value={option.title}
-                        onChange={(value) => handleFieldChange('title', value, index)}
-                        error={errors[`title_${index}`]}
-                      />
-                    </Layout.Section>
-                    <Layout.Section oneThird>
-                      <TextField
-                        label="Quantity"
-                        type="number"
-                        value={option.quantity}
-                        onChange={(value) => handleFieldChange('quantity', value, index)}
-                        error={errors[`quantity_${index}`]}
-                      />
-                    </Layout.Section>
-                    <Layout.Section oneThird>
-                      <Select
-                        label="Discount Type"
-                        options={discountTypes}
-                        value={option.discountType}
-                        onChange={(value) => handleFieldChange('discountType', value, index)}
-                      />
-                      {(option.discountType === 'percent' || option.discountType === 'fixed') && (
+                <Card key={index} sectioned>
+                  <div style={{ position: 'relative' }}>
+                    {/* Nút delete ở góc trên bên phải */}
+                    <Button
+                      icon={DeleteIcon}
+                      onClick={() => handleRemoveOption(index)}
+                      plain
+                      style={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                      }}
+                      accessibilityLabel="Remove option"
+                    />
+                    <Layout>
+                      <Layout.Section oneThird>
                         <TextField
-                          label="Amount"
-                          suffix={option.discountType === 'percent' ? '%' : '$'}
-                          type="number"
-                          value={option.amount}
-                          onChange={(value) => handleFieldChange('amount', value, index)}
-                          error={errors[`amount_${index}`]}
+                          label="Title"
+                          value={option.title}
+                          onChange={(value) => handleFieldChange('title', value, index)}
+                          error={errors[`title_${index}`]}
                         />
-                      )}
-                    </Layout.Section>
-                    <Layout.Section>
-                      <Button destructive onClick={() => handleRemoveOption(index)}>
-                        Remove Option
-                      </Button>
-                    </Layout.Section>
-                  </Layout>
-                  {errors[`title_${index}`] && (
-                    <InlineError message={errors[`title_${index}`]} fieldID={`title_${index}`} />
-                  )}
-                  {errors[`quantity_${index}`] && (
-                    <InlineError message={errors[`quantity_${index}`]} fieldID={`quantity_${index}`} />
-                  )}
-                  {errors[`amount_${index}`] && (
-                    <InlineError message={errors[`amount_${index}`]} fieldID={`amount_${index}`} />
-                  )}
-                </div>
+                      </Layout.Section>
+                      <Layout.Section oneThird>
+                        <TextField
+                          label="Quantity"
+                          type="number"
+                          value={option.quantity}
+                          onChange={(value) => handleFieldChange('quantity', value, index)}
+                          error={errors[`quantity_${index}`]}
+                        />
+                      </Layout.Section>
+                      <Layout.Section oneThird>
+                        <Select
+                          label="Discount Type"
+                          options={discountTypes}
+                          value={option.discountType}
+                          onChange={(value) => handleFieldChange('discountType', value, index)}
+                        />
+                        {(option.discountType === 'percent' || option.discountType === 'fixed') && (
+                          <TextField
+                            label="Amount"
+                            suffix={option.discountType === 'percent' ? '%' : '$'}
+                            type="number"
+                            value={option.amount}
+                            onChange={(value) => handleFieldChange('amount', value, index)}
+                            error={errors[`amount_${index}`]}
+                          />
+                        )}
+                      </Layout.Section>
+                    </Layout>
+                    {/* Hiển thị lỗi */}
+                    {errors[`title_${index}`] && (
+                      <InlineError message={errors[`title_${index}`]} fieldID={`title_${index}`} />
+                    )}
+                    {errors[`quantity_${index}`] && (
+                      <InlineError message={errors[`quantity_${index}`]} fieldID={`quantity_${index}`} />
+                    )}
+                    {errors[`amount_${index}`] && (
+                      <InlineError message={errors[`amount_${index}`]} fieldID={`amount_${index}`} />
+                    )}
+                  </div>
+                </Card>
               ))}
 
               <Button onClick={handleAddOption}>Add Option</Button>
@@ -156,8 +167,7 @@ function DiscountForm() {
 
         {/* Preview Section */}
         <Layout.Section secondary>
-          <Card sectioned title="Preview">
-            <p>Preview</p>
+          <Card sectioned title="Preview Options">
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
